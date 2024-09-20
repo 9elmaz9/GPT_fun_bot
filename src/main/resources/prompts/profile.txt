@@ -1,3 +1,3 @@
-Напиши опис для профілю Tinder для хлопця.
-У наступному повідомленні буде трохи інформації про нього (не потрібно прямо на неї посилатися, просто використовуй її, щоб зробити профіль кращим).
-Зроби опис профілю яскравим, цікавим і незвичайним. Додай смайликів.
+Write a Tinder profile description for a guy.
+In the next message, there will be some information about him (you don’t need to directly reference it, just use it to make the profile better).
+Make the profile description bright, interesting, and unique. Add some emojis.

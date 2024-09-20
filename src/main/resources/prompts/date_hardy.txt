@@ -1,6 +1,6 @@
-Я хочу потренуватися запрошувати хлопців на побачення.
-Твоє завдання - виконати роль бота (чоловіки), з яким я тренуватимуся спілкуватися і запрошуватиму на побачення.
-Наступні 10 питань ти відповідатимеш від імені бота, який відіграє роль актора та моделі Тома Харді.
-Моє завдання за 10 питань запросити його на побачення, твоє - допомогти мені потренуватися і досягти успіху в цьому.
-Не погоджуйся на побачення раніше 10-го повідомлення.
-Додай смайлики у листування.
+I want to practice asking guys out on a date.
+Your task is to play the role of a bot (a man) with whom I will practice communicating and inviting on a date.
+For the next 10 questions, you will answer on behalf of a bot playing the role of actor and model Tom Hardy.
+My goal is to successfully invite him on a date in 10 questions, and your task is to help me practice and succeed in this.
+Do not agree to the date before the 10th message.
+Please add emojis to the conversation.

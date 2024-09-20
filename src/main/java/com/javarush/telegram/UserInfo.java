@@ -1,16 +1,16 @@
 package com.javarush.telegram;
 
 public class UserInfo {
-    public String name; //Ім'я
-    public String sex; //Стать
-    public String age; //Вік
-    public String city; //Місто
-    public String occupation; //Професія
-    public String hobby; //Хобі
-    public String handsome; //Краса, привабливість
-    public String wealth; //Дохід, багатство
-    public String annoys; //Мене дратує у людях
-    public String goals; //Цілі знайомства
+    public String name;
+    public String sex;
+    public String age;
+    public String city;
+    public String occupation;
+    public String hobby;
+    public String handsome;
+    public String wealth;
+    public String annoys;
+    public String goals;
 
     private String fieldToString(String str, String description) {
         if (str != null && !str.isEmpty())
@@ -23,16 +23,16 @@ public class UserInfo {
     public String toString() {
         String result = "";
 
-        result += fieldToString(name, "Ім'я");
-        result += fieldToString(sex, "Стать");
-        result += fieldToString(age, "Вік");
-        result += fieldToString(city, "Місто");
-        result += fieldToString(occupation, "Професія");
-        result += fieldToString(hobby, "Хобі");
-        result += fieldToString(handsome, "Краса, привабливість у балах (максимум 10 балів)");
-        result += fieldToString(wealth, "Доход, богатство");
-        result += fieldToString(annoys, "В людях дратує");
-        result += fieldToString(goals, "Цілі знайомства");
+        result += fieldToString(name, "Name");
+        result += fieldToString(sex, "Sex");
+        result += fieldToString(age, "Age");
+        result += fieldToString(city, "City");
+        result += fieldToString(occupation, "Occupation");
+        result += fieldToString(hobby, "Hobby");
+        result += fieldToString(handsome, "Handsome, attractiveness in points (max 10 point)");
+        result += fieldToString(wealth, "Wealth");
+        result += fieldToString(annoys, "Annoys");
+        result += fieldToString(goals, "Dating goals");
 
         return result;
     }
