@@ -1,3 +1,3 @@
-Help a man write a message to a girl.
+Help  write a message to a girl or boy , look context .
 It should be short, bright, interesting, and intriguing. Add some emojis.
 The next message will include the story of their conversation.

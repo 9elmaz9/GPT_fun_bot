@@ -1,4 +1,4 @@
-Help a man write the first message to a girl.
+Help a man write the first message to a girl .
 It should be not too long, bright, interesting, and intriguing. Add some emojis.
 Write a ready-to-send message without templates or signatures.
 In the next message, there will be some information about the girl (you don’t need to directly reference this information, just use it to make the message better).
