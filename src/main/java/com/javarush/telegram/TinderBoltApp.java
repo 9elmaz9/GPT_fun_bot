@@ -17,14 +17,21 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
     public static final String TELEGRAM_BOT_TOKEN = ""; // токен бота в лапках
     //here should be your token
     public static final String OPEN_AI_TOKEN = ""; // токен ChatGPT у лапках
+
+
     //connect with dialogue mode
     public DialogMode mode = DialogMode.MAIN;
 
     //place for keeping message
     private List<String> chat;
 
+
     //for question in profile
     private UserInfo myInfo;
+    //for opener
+    private UserInfo personInfo;
+
+
     //count  question
     private int questionNumber;
 
@@ -43,8 +50,6 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
         String message = getMessageText();
 
         switch (message) {
-
-
             case "/start" -> {
                 mode = DialogMode.MAIN;
 
@@ -106,7 +111,6 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
                         "ask for a date", "message_date");
 
                 chat = new ArrayList<>(); // stores all сhat
-
                 return;
             }
 
@@ -120,23 +124,33 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
 
                 myInfo = new UserInfo();
                 questionNumber = 1;
-                sendTextMessage("What is your name?"); // enter your name
+                sendTextMessage("Enter your name"); // enter your name
 
-                //question
+                return;
+            }
+            //profile
+            case "/opener" -> {
+                mode = DialogMode.OPENER;
 
+                sendPhotoMessage("opener");
+                String profileMessage = loadMessage("opener");
+                sendTextMessage(profileMessage);
+
+                personInfo = new UserInfo();
+                questionNumber = 1;
+                sendTextMessage("Enter your name"); // enter your name
 
                 return;
             }
         }
 
-        switch (mode) {
 
+        switch (mode) {
 
             case GPT -> {
                 //   (mode == DialogMode.GPT) {
                 String prompt = loadPrompt("gpt");
                 Message msg = sendTextMessage("ChatGPT print ... ");
-
 
                 //prompt-question
                 //String answer =   gptService.sendMessage("Give me answer to my question : ", message); -> with prompt
@@ -187,70 +201,66 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
                 chat.add(message); // help store message
             }
             case PROFILE -> {
-                if(questionNumber <=6){
-                askQuestion(message); }
+                if (questionNumber <= 6) {
+                    askQuestion(message, myInfo, "profile");
+                }
 
             }
+
+            case OPENER -> {
+                if (questionNumber <= 6) {
+                    askQuestion(message, personInfo, "opener");
+                }
+            }
+        }
     }
 
-
-    /**
-     test buttons
-     String text = getMessageText();
-     //sendTextMessage("_" + text + "_");   // _ kursiv   : * bigone
-     sendTextMessage("_" + message + "_");
-
-     //buttons
-     sendTextButtonsMessage("Button message",
-     "START", "start",
-     "STOP", "stop"); */
-}
-
     //metod ASKQUESTION
-    private void askQuestion(String message) {
+    private void askQuestion(String message, UserInfo user, String profileName) {
         switch (questionNumber) {
             case 1 -> {
-                myInfo.name = message;
+                //myInfo.name = message; ->  beter change all  - for  user
+                user.name = message;
                 questionNumber = 2;
-                sendTextMessage("How old are you ? ");
+                sendTextMessage("Please enter your age ");
 
                 return;
             }
             case 2 -> {
-                myInfo.age = message;
+                user.age = message;
                 questionNumber = 3;
-                sendTextMessage("What city are you from?");
+                sendTextMessage("Enter what city  you are from ");
 
                 return;
             }
             case 3 -> {
-                myInfo.city = message;
+                user.city = message;
                 questionNumber = 4;
-                sendTextMessage("What is your occupation?");
+                sendTextMessage("Enter your occupation ");
 
                 return;
             }
             case 4 -> {
-                myInfo.occupation = message;
+                user.occupation = message;
                 questionNumber = 5;
-                sendTextMessage("What is your hobby?");
+                sendTextMessage("Enter your hobby?");
 
                 return;
             }
             case 5 -> {
-                myInfo.hobby = message;
+                user.hobby = message;
                 questionNumber = 6;
-                sendTextMessage("What are your goals for dating?");
+                sendTextMessage("Enter your goals for dating?");
 
                 return;
             }
             case 6 -> {
-                myInfo.goals = message;
+                user.goals = message;
 
-                String prompt = loadPrompt("profile");
+                String prompt = loadPrompt(profileName);
                 Message msg = sendTextMessage("ChatGPT print ... ");
 
-                String answer= gptService.sendMessage(prompt,myInfo.toString());
+                String answer = gptService.sendMessage(prompt, user.toString());
                 //sendTextMessage(answer);
                 updateTextMessage(msg, answer);
 
@@ -264,3 +274,16 @@ public class TinderBoltApp extends MultiSessionTelegramBot {
         telegramBotsApi.registerBot(new TinderBoltApp());
     }
 }
+
+
+/**
+ * test buttons
+ * String text = getMessageText();
+ * //sendTextMessage("_" + text + "_");   // _ kursiv   : * bigone
+ * sendTextMessage("_" + message + "_");
+ * <p>
+ * //buttons
+ * sendTextButtonsMessage("Button message",
+ * "START", "start",
+ * "STOP", "stop");
+ */
