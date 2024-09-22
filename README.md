@@ -1,5 +1,8 @@
 # GTP_fun_bot
 
+![gpt](https://i.ibb.co/ZNmFxqk/12.jpg)
+
+
 GTP_fun_bot is a multi-functional Telegram bot that uses OpenAI's ChatGPT for interactive conversations and content generation related to Tinder profiles, messages, and more. This bot can engage in dialogues, create profiles, send messages, and interact with users using the powerful OpenAI models.
 
 ## Key Features
