@@ -145,7 +145,7 @@ In this screenshot, the bot allows the user to manage and send messages, includi
 The date simulation feature allows users to engage in fun, AI-generated conversations with celebrities or fictional characters.
 
 
-# Conclusion
+##  Conclusion
 
 GTP_fun_bot is more than just a chatbot—it's your personal AI companion for creative conversations, social interactions, and even playful date simulations with celebrities! Whether you're chatting with GPT, creating profiles, or generating quirky icebreakers, GTP_fun_bot brings fun and intelligence right to your Telegram. It's an exciting blend of AI-powered communication and entertainment, designed to keep users engaged and entertained.
 
