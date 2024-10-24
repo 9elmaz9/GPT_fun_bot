@@ -30,12 +30,11 @@ public class ChatGPTService {
                 .init();
     }
 
-    /**
-     * Одиночний запит до ChatGPT за форматом "запит"-> "відповідь".
-     * Запит складається з двох частин:
-     * prompt - контекст питання
-     * question - власне запит
-     */
+   /** * Single query to ChatGPT in "question" -> "response" format.
+   * The query consists of two parts: 
+   * prompt - the context of the question 
+   * question - the actual query */
+    
     public String sendMessage(String prompt, String question) {
         Message system = Message.ofSystem(prompt);
         Message message = Message.of(question);
@@ -44,19 +43,17 @@ public class ChatGPTService {
         return sendMessagesToChatGPT();
     }
     
-    /**
-     * Запити до ChatGPT із збереженням історії повідомлень.
-     * Метод setPrompt() задає контекст запиту
-     */
+   /** * Queries to ChatGPT with message history preservation. 
+   * The setPrompt() method sets the context for the query. */
+    
     public void setPrompt(String prompt) {
         Message system = Message.ofSystem(prompt);
         messageHistory = new ArrayList<>(List.of(system));
     }
 
-    /**
-     * Запити до ChatGPT із збереженням історії повідомлень.
-     * Метод addMessage() додає нове запитання (повідомлення) у чат.
-     */
+  /** * Queries to ChatGPT with message history preservation. 
+  * The addMessage() method adds a new question (message) to the chat. */
+    
     public String addMessage(String question) {
         Message message = Message.of(question);
         messageHistory.add(message);
@@ -64,10 +61,9 @@ public class ChatGPTService {
         return sendMessagesToChatGPT();
     }
 
-    /**
-     * Відправляємо ChatGPT серію повідомлень: prompt, message1, answer1, message2, answer2, ..., messageN
-     * Відповідь ChatGPT додається в кінець messageHistory для подальшого використання
-     */
+   /** * Send a series of messages to ChatGPT: prompt, message1, answer1, message2, answer2, ..., messageN 
+   * ChatGPT's response is added to the end of messageHistory for future use */
+    
     private String sendMessagesToChatGPT(){
         ChatCompletion chatCompletion = ChatCompletion.builder()
               //  .model(ChatCompletion.Model.GPT_3_5_TURBO.getName()) // GPT4Turbo or GPT_3_5_TURBO
