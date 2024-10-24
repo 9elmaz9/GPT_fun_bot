@@ -65,9 +65,8 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
         //do nothing
     }
 
-    /**
-     * Метод повертає ID поточного Telegram-чату
-     */
+    /** * The method returns the ID of the current Telegram chat */
+    
     public Long getCurrentChatId() {
         if (updateEvent.get().hasMessage()) {
             return updateEvent.get().getMessage().getFrom().getId();
@@ -81,7 +80,7 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
     }
 
     /**
-     * Метод вертає текст з останнього повідомлення Telegram-чату
+     *  The method returns the text from the last message in the Telegram chat 
      */
     public String getMessageText() {
         return updateEvent.get().hasMessage() ? updateEvent.get().getMessage().getText() : "";
@@ -91,46 +90,40 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
         return updateEvent.get().hasMessage() && updateEvent.get().getMessage().isCommand();
     }
 
-    /**
-     * Метод повертає код натиснутої кнопки (buttonKey).
-     * Мова йде про кнопки, які були додані до повідомлення.
-     */
+  /** * The method returns the code of the pressed button (buttonKey).
+  * Refers to buttons that were added to the message. */
+    
     public String getCallbackQueryButtonKey() {
         return updateEvent.get().hasCallbackQuery() ? updateEvent.get().getCallbackQuery().getData() : "";
     }
 
-    /**
-     * Метод надсилає в чат ТЕКСТ (текстове повідомлення).
-     * Підтримується markdown-розмітка.
-     */
+  /** * The method sends TEXT (a text message) to the chat.
+  * Markdown formatting is supported. */
+
     public Message sendTextMessage(String text)  {
         SendMessage command = createApiSendMessageCommand(text);
         return executeTelegramApiMethod(command);
     }
 
-    /**
-     * Метод відправляє в чат ФОТО (Зображення).
-     * Зображення задається ключем – photoKey.
-     * Всі зображення містяться в папці resources/images
-     */
+    /** * The method sends a PHOTO (image) to the chat. 
+    * The image is specified by the key – photoKey. 
+    * All images are located in the resources/images folder. */
+    
     public Message sendPhotoMessage(String photoKey) {
         SendPhoto command = createApiPhotoMessageCommand(photoKey, null);
         return executeTelegramApiMethod(command);
     }
 
-    /**
-     * Метод відправляє в чат ФОТО (Зображення) та ТЕКСТ.
-     * Зображення задається ключем – photoKey.
-     * Всі зображення містяться в папці resources/images
-     */
+  /** * The method sends a PHOTO (image) and TEXT to the chat. 
+  * The image is specified by the key – photoKey.
+  * All images are located in the resources/images folder. */
+    
     public Message sendPhotoTextMessage(String photoKey, String text)  {
         SendPhoto command = createApiPhotoMessageCommand(photoKey, text);
         return executeTelegramApiMethod(command);
     }
 
-    /**
-     * Метод змінює ТЕКСТ у раніше надісланному повідомленні.
-     */
+   /** * The method updates the TEXT in a previously sent message. */
     public void updateTextMessage(Message message, String text) {
         EditMessageText command = new EditMessageText();
         command.setChatId(message.getChatId());
@@ -139,9 +132,7 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
         executeTelegramApiMethod(command);
     }
 
-    /**
-     * Повідомлення з кнопками (Inline Buttons)
-     */
+   /** * Message with inline buttons (Inline Buttons) */
     public Message sendTextButtonsMessage(String text, String... buttons) {
         SendMessage command = createApiSendMessageCommand(text);
         if (buttons.length > 0)
@@ -150,10 +141,8 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
         return executeTelegramApiMethod(command);
     }
 
-    /**
-     * Повідомлення з кнопками (Inline Buttons)
-     */
-    public void sendTextButtonsMessage(String text, List<String> buttons) {
+  /** * Message with inline buttons (Inline Buttons) */
+   public void sendTextButtonsMessage(String text, List<String> buttons) {
         SendMessage command = createApiSendMessageCommand(text);
         if (buttons != null && !buttons.isEmpty())
             attachButtons(command, buttons);
@@ -176,23 +165,24 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
             list.add(bc);
         }
 
-        //отримати список команд
+        // retrieve the command list
         var chatId = getCurrentChatId();
         GetMyCommands gmcs = new GetMyCommands();
         gmcs.setScope(BotCommandScopeChat.builder().chatId(chatId).build());
         ArrayList<BotCommand> oldCommands = executeTelegramApiMethod(gmcs);
 
-        //ігнорувати зміни команд для того самого списку команд
+
+        // ignore command changes for the same command list
         if (oldCommands.equals(list))
             return;
 
-        //встановити список команд
+        // set command list
         SetMyCommands cmds = new SetMyCommands();
         cmds.setCommands(list);
         cmds.setScope(BotCommandScopeChat.builder().chatId(chatId).build());
         executeTelegramApiMethod(cmds);
 
-        //показати кнопку меню
+        // show menu button
         var ex = new SetChatMenuButton();
         ex.setChatId(chatId);
         ex.setMenuButton(MenuButtonCommands.builder().build());
@@ -200,13 +190,13 @@ public class MultiSessionTelegramBot extends TelegramLongPollingBot {
     }
 
     public void hideMainMenu() {
-        //видалити списку команд
+        // remove command list
         var chatId = getCurrentChatId();
         DeleteMyCommands dmds = new DeleteMyCommands();
         dmds.setScope(BotCommandScopeChat.builder().chatId(chatId).build());
         executeTelegramApiMethod(dmds);
 
-        //сховати кнопку меню
+        // hide menu button
         var ex = new SetChatMenuButton();
         ex.setChatId(chatId);
         ex.setMenuButton(MenuButtonDefault.builder().build());
